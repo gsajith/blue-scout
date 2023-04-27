@@ -2,6 +2,7 @@ import { LoginResponse } from '@/helpers/bsky';
 import { BskyAgent } from '@atproto/api';
 import { useState } from 'react';
 import SecurityInfo from '../components/securityInfo';
+import TextInput from '../components/textInput';
 
 type LoginPageProps = {
   setLoginResponseData: (data: LoginResponse | null) => void;
@@ -40,38 +41,39 @@ const LoginPage = ({ setLoginResponseData, agent }: LoginPageProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      {/* An offset equal to the security info (ish) */}
-      <div className="h-32" />
-      {/* The title */}
-      <h1 className="text-3xl font-bold mb-6">Login with Bluesky</h1>
-      {/* The login form */}
-      <form
-        className="flex flex-col"
-        onSubmit={(e) => {
-          e.preventDefault();
-          login(username, password);
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border border-gray-300 dark:border-slate-700 p-2 rounded mb-4 text-black"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border border-gray-300 dark:border-slate-700 p-2 rounded mb-4 text-black"
-        />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-          Login
-        </button>
-      </form>
-      {error && <p className="text-red-500 mt-4">{error}</p>}
+    <div className="flex flex-col items-center justify-center min-h-screen p-2">
+      <div className="container max-w-sm flex flex-col justify-center p-10 items-center rounded-3xl bg-[#1D1E35] shadow-2xl">
+        {/* The title */}
+        <h1 className="text-2xl font-bold mb-6">Login with Bluesky</h1>
+        {/* The login form */}
+        <form
+          className="flex flex-col"
+          onSubmit={(e) => {
+            e.preventDefault();
+            login(username, password);
+          }}
+        >
+          <TextInput
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextInput
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="bg-[#474887] hover:bg-[#5C5D9F] text-white p-2 rounded"
+          >
+            Login
+          </button>
+        </form>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+      </div>
       {/* Security policy section */}
       <SecurityInfo />
     </div>

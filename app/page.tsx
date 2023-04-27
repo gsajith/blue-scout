@@ -43,10 +43,8 @@ export default function Home() {
   // ****************************** END AUTH ******************************
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Header
-        logout={identifier ? () => setLoginResponseData(null) : undefined}
-      />
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      {identifier && <Header logout={() => setLoginResponseData(null)} />}
       {identifier ? (
         <div>You're in</div>
       ) : (
