@@ -5,8 +5,7 @@ import { BskyAgent } from '@atproto/api';
 import { useEffect, useRef, useState } from 'react';
 import * as jwt from 'jsonwebtoken';
 import LoginPage from './login/page';
-import Header from './components/header';
-import LoadingSpinner from './components/loadingSpinner';
+import Header from './components/Header';
 
 export default function Home() {
   const agent = useRef<BskyAgent>(
@@ -49,7 +48,14 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center h-screen">
       <Header
-        logout={identifier ? () => setLoginResponseData(null) : undefined}
+        logout={
+          identifier
+            ? () => {
+                setLoginResponseData(null);
+                console.log('click');
+              }
+            : undefined
+        }
       />
       {authLoading ? (
         <div className="flex flex-row items-center justify-center">

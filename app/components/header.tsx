@@ -1,5 +1,6 @@
 import { FaPaperPlane } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
+import PrimaryButton from './PrimaryButton';
 type HeaderProps = {
   logout?: () => void;
 };
@@ -12,13 +13,10 @@ const Header = ({ logout }: HeaderProps) => {
         Sky Scout
       </div>
       {logout && (
-        <button
-          className="text-base border py-2 px-4 rounded-lg flex flex-row items-center ml-4 mr-0 sm:mr-3 text-slate-800 bg-white border-gray-300 dark:text-slate-50 dark:bg-slate-800 dark:border-slate-700"
-          onClick={() => logout()}
-        >
+        <PrimaryButton type="button" onClick={() => logout()}>
           <FiLogOut className="mr-2" />
           Logout
-        </button>
+        </PrimaryButton>
       )}
     </div>
   );

@@ -1,8 +1,9 @@
 import { LoginResponse } from '@/helpers/bsky';
 import { BskyAgent } from '@atproto/api';
 import { useState } from 'react';
-import SecurityInfo from '../components/securityInfo';
 import TextInput from '../components/textInput';
+import PrimaryButton from '../components/PrimaryButton';
+import SecurityInfo from '../components/securityInfo';
 
 type LoginPageProps = {
   setLoginResponseData: (data: LoginResponse | null) => void;
@@ -65,12 +66,7 @@ const LoginPage = ({ setLoginResponseData, agent }: LoginPageProps) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
-            type="submit"
-            className="bg-[#474887] hover:bg-[#5C5D9F] text-white p-2 rounded"
-          >
-            Login
-          </button>
+          <PrimaryButton type="submit">Login</PrimaryButton>
         </form>
         {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
