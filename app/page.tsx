@@ -2,10 +2,11 @@
 import { LoginResponse } from '@/helpers/bsky';
 import { useLocalStorageState } from '@/helpers/hooks';
 import { BskyAgent } from '@atproto/api';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as jwt from 'jsonwebtoken';
 import LoginPage from './login/page';
 import Header from './components/header';
+import LoadingSpinner from './components/loadingSpinner';
 
 export default function Home() {
   const agent = useRef<BskyAgent>(
@@ -15,8 +16,10 @@ export default function Home() {
   ).current;
 
   // ****************************** AUTH ******************************
+  const [authLoading, setAuthLoading] = useState(true);
   const [loginResponseData, setLoginResponseData] =
     useLocalStorageState<LoginResponse | null>('@loginResponseData', null);
+
   const identifier = loginResponseData?.handle;
   const accessJwt = !!loginResponseData?.accessJwt
     ? (jwt.decode(loginResponseData.accessJwt) as jwt.JwtPayload)
@@ -36,6 +39,7 @@ export default function Home() {
     }
   }, [timeUntilLoginExpire]);
   useEffect(() => {
+    setAuthLoading(false);
     if (loginResponseData && !agent.session) {
       agent.resumeSession(loginResponseData);
     }
@@ -47,7 +51,12 @@ export default function Home() {
       <Header
         logout={identifier ? () => setLoginResponseData(null) : undefined}
       />
-      {identifier ? (
+      {authLoading ? (
+        <div className="flex flex-row items-center justify-center">
+          <div className="lds-dual-ring mr-2" />
+          Loading...
+        </div>
+      ) : identifier ? (
         <div>You're in</div>
       ) : (
         <LoginPage setLoginResponseData={setLoginResponseData} agent={agent} />
