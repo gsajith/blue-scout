@@ -14,7 +14,7 @@ export default function Home() {
     })
   ).current;
 
-  // Auth stuff
+  // ****************************** AUTH ******************************
   const [loginResponseData, setLoginResponseData] =
     useLocalStorageState<LoginResponse | null>('@loginResponseData', null);
   const identifier = loginResponseData?.handle;
@@ -45,6 +45,7 @@ export default function Home() {
       agent.resumeSession(loginResponseData);
     }
   }, [loginResponseData]);
+  // ****************************** END AUTH ******************************
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
