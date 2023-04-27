@@ -1,9 +1,4 @@
 /* material icons */
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-.material-icons {
-  font-size: inherit;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

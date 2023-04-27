@@ -41,7 +41,7 @@ const LoginPage = ({ setLoginResponseData, agent }: LoginPageProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-2">
+    <div className="flex flex-col items-center justify-center p-2 pb-8">
       <div className="container max-w-sm flex flex-col justify-center p-10 items-center rounded-3xl bg-[#1D1E35] shadow-2xl">
         {/* The title */}
         <h1 className="text-2xl font-bold mb-6">Login with Bluesky</h1>
