@@ -5,7 +5,8 @@ import { BskyAgent } from '@atproto/api';
 import { useEffect, useRef, useState } from 'react';
 import * as jwt from 'jsonwebtoken';
 import LoginPage from './login/page';
-import Header from './components/header';
+import Header from './components/Header';
+import HomePage from './home/page';
 
 export default function Home() {
   const agent = useRef<BskyAgent>(
@@ -52,18 +53,23 @@ export default function Home() {
           identifier
             ? () => {
                 setLoginResponseData(null);
-                console.log('click');
               }
             : undefined
         }
       />
       {authLoading ? (
-        <div className="flex flex-row items-center justify-center">
+        <div className="flex flex-row items-center justify-center  ">
           <div className="lds-dual-ring mr-2" />
           Loading...
         </div>
       ) : identifier ? (
-        <div>You're in</div>
+        <HomePage
+          agent={agent}
+          loginData={loginResponseData}
+          logout={() => {
+            setLoginResponseData(null);
+          }}
+        />
       ) : (
         <LoginPage setLoginResponseData={setLoginResponseData} agent={agent} />
       )}

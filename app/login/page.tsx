@@ -3,7 +3,7 @@ import { BskyAgent } from '@atproto/api';
 import { useState } from 'react';
 import TextInput from '../components/textInput';
 import PrimaryButton from '../components/PrimaryButton';
-import SecurityInfo from '../components/securityInfo';
+import SecurityInfo from '../components/SecurityInfo';
 
 type LoginPageProps = {
   setLoginResponseData: (data: LoginResponse | null) => void;
@@ -16,6 +16,7 @@ const LoginPage = ({ setLoginResponseData, agent }: LoginPageProps) => {
   const [error, setError] = useState<null | string>(null);
 
   const login = (username: string, password: string) => {
+    console.log('here', username, password);
     setError(null);
     agent
       .login({
