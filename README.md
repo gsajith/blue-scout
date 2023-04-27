@@ -1,6 +1,6 @@
-# Blue Scout
+# Sky Scout
 
-Blue Scout is an analysis tool for Bluesky. You can use it to analyze your second-degree social connections on the network.
+Sky Scout is an analysis tool for Bluesky. You can use it to analyze your second-degree social connections on the network.
 
 ## Getting Started
 

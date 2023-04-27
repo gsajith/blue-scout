@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Blue Scout',
+  title: 'Sky Scout',
   description: 'Analyze second-degree Bluesky connections'
 };
 

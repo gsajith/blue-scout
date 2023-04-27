@@ -19,12 +19,7 @@ export default function Home() {
     useLocalStorageState<LoginResponse | null>('@loginResponseData', null);
   const identifier = loginResponseData?.handle;
   const accessJwt = !!loginResponseData?.accessJwt
-    ? (jwt.decode(loginResponseData.accessJwt) as {
-        exp: number;
-        iat: number;
-        scope: string;
-        sub: string;
-      })
+    ? (jwt.decode(loginResponseData.accessJwt) as jwt.JwtPayload)
     : null;
   const loginExpiration = accessJwt?.exp;
   const timeUntilLoginExpire = loginExpiration
