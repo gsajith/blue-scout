@@ -5,7 +5,7 @@ import { BskyAgent } from '@atproto/api';
 import { useEffect, useRef, useState } from 'react';
 import * as jwt from 'jsonwebtoken';
 import LoginPage from './login/page';
-import Header from './components/Header';
+import Header from './components/header';
 
 export default function Home() {
   const agent = useRef<BskyAgent>(
