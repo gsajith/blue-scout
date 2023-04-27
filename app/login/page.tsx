@@ -1,46 +1,46 @@
-import { LoginResponse } from "@/helpers/bsky";
-import { BskyAgent } from "@atproto/api";
-import { useState } from "react";
-import SecurityInfo from "../components/securityInfo";
+import { LoginResponse } from '@/helpers/bsky';
+import { BskyAgent } from '@atproto/api';
+import { useState } from 'react';
+import SecurityInfo from '../components/securityInfo';
 
 type LoginPageProps = {
   setLoginResponseData: (data: LoginResponse | null) => void;
   agent: BskyAgent;
-}
+};
 
-const LoginPage = ({ setLoginResponseData, agent }:LoginPageProps) => {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+const LoginPage = ({ setLoginResponseData, agent }: LoginPageProps) => {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<null | string>(null);
 
   const login = (username: string, password: string) => {
-  setError(null);
-  agent
-    .login({
-      identifier: username,
-      password: password,
-    })
-    .then((response) => {
-      if (response.success) {
-        setLoginResponseData({
-          ...response.data,
-          refreshJwt: "", // removing this for security reasons
-        });
-      } else {
+    setError(null);
+    agent
+      .login({
+        identifier: username,
+        password: password
+      })
+      .then((response) => {
+        if (response.success) {
+          setLoginResponseData({
+            ...response.data,
+            refreshJwt: '' // removing this for security reasons
+          });
+        } else {
+          // Error
+          setLoginResponseData(null);
+          setError('Error');
+        }
+      })
+      .catch((err) => {
         // Error
         setLoginResponseData(null);
-        setError("Error");
-      }
-    })
-    .catch((err) => {
-      // Error
-      setLoginResponseData(null);
-      setError(err.message);
-    });
+        setError(err.message);
+      });
   };
 
   return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       {/* An offset equal to the security info (ish) */}
       <div className="h-32" />
       {/* The title */}
@@ -75,7 +75,7 @@ const LoginPage = ({ setLoginResponseData, agent }:LoginPageProps) => {
       {/* Security policy section */}
       <SecurityInfo />
     </div>
-  )
-}
+  );
+};
 
 export default LoginPage;

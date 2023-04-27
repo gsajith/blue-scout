@@ -17,7 +17,7 @@ const SecurityInfo = () => {
           frontend, not in cookies, nowhere.
         </li>
         <li>
-          If you don't trust us, you can always check the source code of{" "}
+          If you don't trust us, you can always check the source code of{' '}
           <a
             href="https://github.com/louislva/skyline"
             className="text-blue-500"
@@ -27,7 +27,8 @@ const SecurityInfo = () => {
           </a>
         </li>
       </ul>
-    </div>)
-}
+    </div>
+  );
+};
 
 export default SecurityInfo;

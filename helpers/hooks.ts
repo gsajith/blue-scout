@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export function useLocalStorageState<T>(
   key: string,
@@ -15,7 +15,6 @@ export function useLocalStorageState<T>(
     if (value) {
       setState(JSON.parse(value));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setStateAndSave = (value: T) => {
