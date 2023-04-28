@@ -70,7 +70,7 @@ const AppBox = () => {
       )}
       {selectedAction !== null && (
         <div
-          className="flex flex-col bg-[#1D1E35] max-w-3xl drop-shadow-2xl rounded-3xl p-6 ml-6"
+          className="flex flex-col bg-[#1D1E35] max-w-3xl drop-shadow-2xl rounded-3xl p-6 ml-4"
           style={{ flex: '1 1 300px' }}
         >
           <div>

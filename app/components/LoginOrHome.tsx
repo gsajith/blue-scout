@@ -1,8 +1,8 @@
 'use client';
-import { useAuth } from './AuthProvider';
-import Header from './components/Header';
-import HomePage from './home/page';
-import LoginPage from './login/page';
+import { useAuth } from '../context/AuthProvider';
+import Header from './Header';
+import HomePage from '../home/page';
+import LoginPage from '../login/page';
 
 const LoginOrHome = () => {
   const { authLoading, loginResponseData } = useAuth();

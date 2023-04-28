@@ -2,7 +2,7 @@ import { FiLogOut } from 'react-icons/fi';
 import PrimaryButton from './PrimaryButton';
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 import Image from 'next/image';
-import { useAuth } from '../AuthProvider';
+import { useAuth } from '../context/AuthProvider';
 
 type UserBoxProps = {
   profile: ProfileViewDetailed | null;

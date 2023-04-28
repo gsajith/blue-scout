@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useAuth } from '../AuthProvider';
+import { useAuth } from '../context/AuthProvider';
 import PrimaryButton from '../components/PrimaryButton';
 import SecurityInfo from '../components/SecurityInfo';
 import TextInput from '../components/textInput';

@@ -1,4 +1,4 @@
-import { BskyAgent } from '@atproto/api';
+import { BskyAgent, AtpAgent } from '@atproto/api';
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 import { ProfileView } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 
@@ -10,8 +10,9 @@ export type LoginResponse = {
   refreshJwt: string;
 };
 
-let followsCache: ProfileView[] | null = null;
-let followersCache: ProfileView[] | null = null;
+const NEXT_PAGE_WAIT = 50;
+const followsCache: Map<string, ProfileView[]> = new Map();
+const followersCache: Map<string, ProfileView[]> = new Map();
 let profileCache: ProfileViewDetailed | null = null;
 
 export async function getMyProfile(
@@ -34,43 +35,55 @@ export async function getMyProfile(
 export async function getFollows(
   agent: BskyAgent,
   identifier: string,
-  maxPages: number = 10
+  limit: number = 100,
+  maxPages: number = 20
 ): Promise<ProfileView[]> {
-  if (followsCache) return followsCache;
+  console.log(followsCache);
+  if (followsCache.has(identifier)) {
+    return followsCache.get(identifier)!;
+  }
 
   let follows: ProfileView[] = [];
   let cursor;
   for (let i = 0; i < maxPages; i++) {
     const response = await agent.getFollows({
       actor: identifier,
+      limit,
       cursor
     });
 
     if (response.success) {
       follows = follows.concat(response.data.follows);
+      console.log(identifier, follows.length);
       if (!response.data.cursor || response.data.follows.length === 0) {
         break;
       }
       cursor = response.data.cursor;
     } else {
-      // TODO: Handle error
+      console.error(response);
       break;
     }
+    await new Promise((r) => setTimeout(r, NEXT_PAGE_WAIT));
   }
-  followsCache = follows;
+  followsCache.set(identifier, follows);
   return follows;
 }
-async function getFollowers(
+
+export async function getFollowers(
   agent: BskyAgent,
   identifier: string,
-  maxPages: number = 10
+  limit: number = 100,
+  maxPages: number = 20
 ): Promise<ProfileView[]> {
-  if (followersCache) return followersCache;
+  if (followersCache.has(identifier)) {
+    return followersCache.get(identifier)!;
+  }
   let followers: ProfileView[] = [];
   let cursor;
   for (let i = 0; i < maxPages; i++) {
     const response = await agent.getFollowers({
       actor: identifier,
+      limit,
       cursor
     });
 
@@ -84,7 +97,8 @@ async function getFollowers(
       // TODO: Handle error
       break;
     }
+    await new Promise((r) => setTimeout(r, NEXT_PAGE_WAIT));
   }
-  followersCache = followers;
+  followersCache.set(identifier, followers);
   return followers;
 }
