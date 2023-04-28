@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthProvider';
 import PrimaryButton from '../components/PrimaryButton';
-import SecurityInfo from '../components/SecurityInfo';
 import TextInput from '../components/textInput';
+import SecurityInfo from '../components/SecurityInfo';
 
 const LoginPage = () => {
   const { agent, setLoginResponseData } = useAuth();
