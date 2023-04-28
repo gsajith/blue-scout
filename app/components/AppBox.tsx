@@ -43,7 +43,6 @@ const AppBox = () => {
             ref={linkRef}
             href="https://forms.gle/o3NPxsR2HN3stjXQ8"
             target="_blank"
-            className="unselectable"
             tabIndex={-1}
           >
             <ActionBox
