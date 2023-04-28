@@ -2,6 +2,7 @@
 import { useAuth } from '@/app/context/AuthProvider';
 import { getFollowersDID, getFollowsDID } from '@/helpers/bsky';
 import { useEffect, useState } from 'react';
+import ProfileListItem from '../ProfileListItem';
 
 const FollowerFollows = () => {
   const { agent, loginResponseData } = useAuth();
@@ -30,7 +31,7 @@ const FollowerFollows = () => {
   useEffect(() => {
     async function fetchFollowerFollows() {
       if (followerDIDs.length > 0) {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 1; i++) {
           setProgress(i + 1);
           console.log('getting', followerDIDs[i]);
           const result = await getFollowsDID(agent!, followerDIDs[i]);
@@ -65,18 +66,26 @@ const FollowerFollows = () => {
 
   return (
     <div>
-      Done {progress} / {followerDIDs.length}
-      {Array.from(resultCounter, ([key, value]) => ({ key, value }))
-        .sort((a, b) =>
-          a.value.followedByDIDs.length < b.value.followedByDIDs.length ? 1 : -1
-        )
-        .map((item, index) => {
-          return (
-            <div key={index}>
-              {item.key}: {item.value.followedByDIDs.length}
-            </div>
-          );
-        })}
+      <div className="max-h-[600px] overflow-y-scroll overflow-x-hidden mt-2">
+        {Array.from(resultCounter, ([key, value]) => ({ key, value }))
+          .sort((a, b) =>
+            a.value.followedByDIDs.length < b.value.followedByDIDs.length
+              ? 1
+              : -1
+          )
+          .map((item, index) => {
+            return (
+              <ProfileListItem
+                key={index}
+                did={item.key}
+                count={item.value.followedByDIDs.length}
+              />
+            );
+          })}
+      </div>
+      <div className="mt-4">
+        Fetched {progress} / {followerDIDs.length}
+      </div>
     </div>
   );
 };
