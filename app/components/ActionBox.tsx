@@ -16,7 +16,7 @@ const ActionBox = ({
       onClick={onClick}
       {...rest}
       className={
-        'bg-[#262941] hover:bg-[#333654] focus:border-1 cursor-pointer rounded-xl w-72 h-60 m-4 xs:w-full 2xs:w-full sm:w-full p-6 flex flex-col justify-center items-center' +
+        'bg-[#262941] hover:bg-[#333654] focus:border-2 cursor-pointer rounded-xl w-72 h-60 m-4 xs:w-full 2xs:w-full sm:w-full p-6 flex flex-col justify-center items-center border-slate-600 border' +
         ' ' +
         className
       }

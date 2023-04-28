@@ -2,28 +2,30 @@ import { FiLogOut } from 'react-icons/fi';
 import PrimaryButton from './PrimaryButton';
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 import Image from 'next/image';
+import { useAuth } from '../AuthProvider';
 
 type UserBoxProps = {
   profile: ProfileViewDetailed | null;
-  logout: () => void;
 };
-const UserBox = ({ logout, profile }: UserBoxProps) => {
+const UserBox = ({ profile }: UserBoxProps) => {
+  const { logout } = useAuth();
+
   return (
-    <div className="w-96">
+    <div className="w-[350px]">
       <div className="flex flex-col items-start bg-[#1D1E35] drop-shadow-2xl rounded-3xl p-6">
         <div className="flex flex-col w-full">
           <div className="flex flex-row justify-between items-center mb-2">
             <span className="uppercase text-slate-400 text-sm w-full">
               Hey there!
             </span>
-            {logout && (
-              <div className="w-full flex flex-row justify-end">
-                <PrimaryButton type="button" onClick={() => logout()}>
+            <div className="w-full flex flex-row justify-end">
+              {logout && (
+                <PrimaryButton type="button" onClick={logout}>
                   <FiLogOut className="mr-2" />
                   Logout
                 </PrimaryButton>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className="flex flex-row items-center border-b-2 pb-6 border-slate-600">
             <Image

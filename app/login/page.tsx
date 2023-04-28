@@ -1,45 +1,44 @@
-import { LoginResponse } from '@/helpers/bsky';
-import { BskyAgent } from '@atproto/api';
+'use client';
 import { useState } from 'react';
-import TextInput from '../components/textInput';
+import { useAuth } from '../AuthProvider';
 import PrimaryButton from '../components/PrimaryButton';
 import SecurityInfo from '../components/SecurityInfo';
+import TextInput from '../components/textInput';
 
-type LoginPageProps = {
-  setLoginResponseData: (data: LoginResponse | null) => void;
-  agent: BskyAgent;
-};
-
-const LoginPage = ({ setLoginResponseData, agent }: LoginPageProps) => {
+const LoginPage = () => {
+  const { agent, setLoginResponseData } = useAuth();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<null | string>(null);
 
   const login = (username: string, password: string) => {
-    console.log('here', username, password);
     setError(null);
-    agent
-      .login({
-        identifier: username,
-        password: password
-      })
-      .then((response) => {
-        if (response.success) {
-          setLoginResponseData({
-            ...response.data,
-            refreshJwt: '' // removing this for security reasons
-          });
-        } else {
+    if (agent !== null && setLoginResponseData !== null) {
+      agent
+        .login({
+          identifier: username,
+          password: password
+        })
+        .then((response) => {
+          if (response.success) {
+            setLoginResponseData({
+              ...response.data,
+              refreshJwt: '' // removing this for security reasons
+            });
+          } else {
+            // Error
+            setLoginResponseData(null);
+            setError('Error');
+          }
+        })
+        .catch((err) => {
           // Error
           setLoginResponseData(null);
-          setError('Error');
-        }
-      })
-      .catch((err) => {
-        // Error
-        setLoginResponseData(null);
-        setError(err.message);
-      });
+          setError(err.message);
+        });
+    } else {
+      setError('Unable to find Bluesky connection');
+    }
   };
 
   return (

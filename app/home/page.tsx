@@ -1,31 +1,28 @@
-import { LoginResponse, getMyProfile } from '@/helpers/bsky';
-import UserBox from '../components/UserBox';
-import { BskyAgent } from '@atproto/api';
-import { useEffect, useState } from 'react';
+'use client';
+import { getMyProfile } from '@/helpers/bsky';
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../AuthProvider';
 import AppBox from '../components/AppBox';
+import UserBox from '../components/UserBox';
 
-type HomePageProps = {
-  loginData: LoginResponse;
-  agent: BskyAgent;
-  logout: () => void;
-};
-const HomePage = ({ logout, loginData, agent }: HomePageProps) => {
+const HomePage = () => {
+  const { agent, loginResponseData } = useAuth();
   const [profile, setProfile] = useState<ProfileViewDetailed | null>(null);
 
   useEffect(() => {
     async function fetchProfile() {
-      const response = await getMyProfile(agent, loginData.handle);
+      const response = await getMyProfile(agent!, loginResponseData!.handle);
       if (response) {
         setProfile(response);
       }
     }
     fetchProfile();
-  }, [agent, loginData]);
+  }, [agent, loginResponseData]);
 
   return (
     <div className="flex flex-row flex-wrap container xs:min-w-full 2xs:min-w-full p-4">
-      <UserBox logout={logout} profile={profile} />
+      <UserBox profile={profile} />
       <AppBox />
     </div>
   );
