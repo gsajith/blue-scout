@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import LoginPage from '../login/LoginPage';
+import LoginPage from '../login/page';
 import { useAuth } from './AuthProvider';
 
 const AuthBoundary = (props: React.PropsWithChildren) => {
@@ -16,7 +16,8 @@ const AuthBoundary = (props: React.PropsWithChildren) => {
   }
 
   if (!loginResponseData) {
-    return <LoginPage />;
+    router.push('/login');
+    return <></>;
   }
   return <>{props.children}</>;
 };

@@ -1,5 +1,5 @@
 'use client';
-import AppBox from '../components/AppBox';
+import AppPage from '../components/AppPage';
 import Header from '../components/Header';
 import UserBox from '../components/UserBox';
 
@@ -9,7 +9,7 @@ const HomePage = () => {
       <Header />
       <div className="flex flex-row flex-wrap container xs:min-w-full 2xs:min-w-full p-4">
         <UserBox />
-        <AppBox />
+        <AppPage />
       </div>
     </main>
   );

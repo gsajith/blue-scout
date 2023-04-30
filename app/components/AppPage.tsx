@@ -1,10 +1,20 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ActionBox from './ActionBox';
 import PrimaryButton from './PrimaryButton';
 import FollowerFollows from './actions/FollowerFollows';
+import DIDLookup from './actions/DIDLookup';
+import { useAuth } from '../auth/AuthProvider';
 
-const AppBox = () => {
+const NEEDS_AUTH = [
+  true, // Handle lookup
+  true, // Followers followed
+  true, // Followed's followers
+  true // Followed's followed
+];
+
+const AppPage = () => {
   const [selectedAction, setSelectedAction] = useState<number | null>(null);
+  const { loginResponseData } = useAuth();
   const linkRef = useRef<HTMLAnchorElement>(null);
 
   let renderedAction = <></>;
@@ -13,9 +23,17 @@ const AppBox = () => {
     case 0:
       renderedAction = <FollowerFollows />;
       break;
+    case 1:
+      renderedAction = <DIDLookup />;
     default:
       break;
   }
+
+  useEffect(() => {
+    if (!loginResponseData) {
+      setSelectedAction(null);
+    }
+  }, [loginResponseData]);
   return (
     <>
       {selectedAction === null && (
@@ -24,6 +42,7 @@ const AppBox = () => {
           style={{ flex: '1 1 300px' }}
         >
           <ActionBox
+            authRequired={NEEDS_AUTH[0]}
             onClick={(e) => {
               setSelectedAction(0);
             }}
@@ -31,13 +50,29 @@ const AppBox = () => {
             Who your followers follow the most
           </ActionBox>
           <ActionBox
+            authRequired={NEEDS_AUTH[1]}
             onClick={(e) => {
               setSelectedAction(1);
             }}
           >
+            Handle lookup
+          </ActionBox>
+          <ActionBox
+            authRequired={NEEDS_AUTH[2]}
+            onClick={(e) => {
+              setSelectedAction(2);
+            }}
+          >
             Who the people you're following the most
           </ActionBox>
-          <ActionBox>Who also follows the people you're following</ActionBox>
+          <ActionBox
+            authRequired={NEEDS_AUTH[3]}
+            onClick={(e) => {
+              setSelectedAction(3);
+            }}
+          >
+            Who also follows the people you're following
+          </ActionBox>
 
           <a
             ref={linkRef}
@@ -46,6 +81,7 @@ const AppBox = () => {
             tabIndex={-1}
           >
             <ActionBox
+              authRequired={false}
               className="opacity-40 hover:bg-[#262941]"
               onClick={(e) => {
                 e.preventDefault();
@@ -87,4 +123,4 @@ const AppBox = () => {
   );
 };
 
-export default AppBox;
+export default AppPage;

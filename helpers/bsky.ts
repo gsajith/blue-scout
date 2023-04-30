@@ -23,14 +23,28 @@ export async function getMyProfile(
   agent: BskyAgent,
   identifier: string
 ): Promise<ProfileViewDetailed | null> {
-  if (profileCache) return profileCache;
+  let profile = null;
+  const response = await agent.getProfile({ actor: identifier });
+
+  if (response.success) {
+    profile = response.data;
+  }
+
+  return profile;
+}
+
+export async function getProfile(
+  agent: BskyAgent,
+  identifier: string
+): Promise<ProfileViewDetailed | null> {
+  // if (profileCache) return profileCache;
 
   let profile = null;
   const response = await agent.getProfile({ actor: identifier });
 
   if (response.success) {
     profile = response.data;
-    profileCache = profile;
+    // profileCache = profile;
   }
 
   return profile;
