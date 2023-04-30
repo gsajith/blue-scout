@@ -2,7 +2,7 @@
 import { getMyProfile } from '@/helpers/bsky';
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from '../auth/AuthProvider';
 import AppBox from '../components/AppBox';
 import UserBox from '../components/UserBox';
 

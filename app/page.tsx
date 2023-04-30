@@ -1,4 +1,4 @@
-import { AuthProvider } from './context/AuthProvider';
+import { AuthProvider } from './auth/AuthProvider';
 import LoginOrHome from './components/LoginOrHome';
 
 export default function Home() {

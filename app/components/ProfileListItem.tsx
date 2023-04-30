@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from '../auth/AuthProvider';
 
 type ProfileListItemProps = {
   did: string;

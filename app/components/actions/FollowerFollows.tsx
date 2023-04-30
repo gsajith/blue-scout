@@ -1,5 +1,5 @@
 'use client';
-import { useAuth } from '@/app/context/AuthProvider';
+import { useAuth } from '@/app/auth/AuthProvider';
 import { getFollowersDID, getFollowsDID } from '@/helpers/bsky';
 import { useEffect, useState } from 'react';
 import ProfileListItem from '../ProfileListItem';

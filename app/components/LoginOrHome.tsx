@@ -1,5 +1,5 @@
 'use client';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from '../auth/AuthProvider';
 import Header from './Header';
 import HomePage from '../home/page';
 import LoginPage from '../login/page';
