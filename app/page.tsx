@@ -1,10 +1,10 @@
 import { AuthProvider } from './auth/AuthProvider';
-import LoginOrHome from './components/LoginOrHome';
+import HomePage from './home/page';
 
 export default function Home() {
   return (
     <AuthProvider>
-      <LoginOrHome />
+      <HomePage />
     </AuthProvider>
   );
 }
