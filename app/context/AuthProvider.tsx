@@ -70,7 +70,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
         authLoading,
         loginResponseData,
         setLoginResponseData,
-        logout: () => setLoginResponseData(null)
+        logout: loginResponseData ? () => setLoginResponseData(null) : null
       }}
     >
       {children}
