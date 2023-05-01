@@ -2,7 +2,6 @@
 import { useAuth } from '@/app/auth/AuthProvider';
 import { getFollowersDID, getFollowsDID } from '@/helpers/bsky';
 import { useEffect, useState } from 'react';
-import ProfileListItem from '../ProfileListItem';
 
 const FollowerFollows = () => {
   const { agent, loginResponseData } = useAuth();
@@ -74,13 +73,7 @@ const FollowerFollows = () => {
               : -1
           )
           .map((item, index) => {
-            return (
-              <ProfileListItem
-                key={index}
-                did={item.key}
-                count={item.value.followedByDIDs.length}
-              />
-            );
+            return <div key={index}>x</div>;
           })}
       </div>
       <div className="mt-4">
