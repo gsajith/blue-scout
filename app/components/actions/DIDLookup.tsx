@@ -1,9 +1,9 @@
-import debounce from 'lodash.debounce';
-import { useEffect, useMemo, useState } from 'react';
-import TextInput from '../textInput';
 import { useAuth } from '@/app/auth/AuthProvider';
 import { getProfile } from '@/helpers/bsky';
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
+import debounce from 'lodash.debounce';
+import { useEffect, useMemo, useState } from 'react';
+import TextInput from '../TextInput';
 import UserDetails from '../UserDetails';
 
 const DIDLookup = () => {

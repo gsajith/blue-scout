@@ -1,10 +1,10 @@
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { useAuth } from '../auth/AuthProvider';
 import ActionBox from './ActionBox';
 import PrimaryButton from './PrimaryButton';
-import FollowerFollows from './actions/FollowerFollows';
 import DIDLookup from './actions/DIDLookup';
-import { useAuth } from '../auth/AuthProvider';
-import Image from 'next/image';
+import FollowerFollows from './actions/FollowerFollows';
 import TestAction from './actions/TestAction';
 
 const NEEDS_AUTH = [

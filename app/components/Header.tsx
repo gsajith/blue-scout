@@ -1,7 +1,7 @@
 import { FaPaperPlane } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
-import PrimaryButton from './PrimaryButton';
 import { useAuth } from '../auth/AuthProvider';
+import PrimaryButton from './PrimaryButton';
 
 const Header = () => {
   const { logout } = useAuth();

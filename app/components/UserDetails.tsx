@@ -1,7 +1,7 @@
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 import Image from 'next/image';
-import PrimaryButton from './PrimaryButton';
 import { useRouter } from 'next/navigation';
+import PrimaryButton from './PrimaryButton';
 
 type UserDetailsProps = {
   profile?: ProfileViewDetailed;

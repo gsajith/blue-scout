@@ -2,6 +2,7 @@
 import { LoginResponse } from '@/helpers/bsky';
 import { useLocalStorageState } from '@/helpers/hooks';
 import { BskyAgent } from '@atproto/api';
+import * as jwt from 'jsonwebtoken';
 import {
   PropsWithChildren,
   createContext,
@@ -10,7 +11,6 @@ import {
   useRef,
   useState
 } from 'react';
-import * as jwt from 'jsonwebtoken';
 
 type Auth = {
   agent: BskyAgent | null;

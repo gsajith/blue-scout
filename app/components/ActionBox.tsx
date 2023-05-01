@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { MouseEventHandler } from 'react';
-import { useAuth } from '../auth/AuthProvider';
 import { FaLock } from 'react-icons/fa';
+import { useAuth } from '../auth/AuthProvider';
 
 type ActionBoxProps = {
   className?: string;

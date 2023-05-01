@@ -1,11 +1,11 @@
 'use client';
-import { useState } from 'react';
-import { AuthProvider, useAuth } from '../auth/AuthProvider';
-import PrimaryButton from '../components/PrimaryButton';
-import TextInput from '../components/textInput';
-import SecurityInfo from '../components/SecurityInfo';
-import Header from '../components/Header';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useAuth } from '../auth/AuthProvider';
+import Header from '../components/Header';
+import PrimaryButton from '../components/PrimaryButton';
+import SecurityInfo from '../components/SecurityInfo';
+import TextInput from '../components/TextInput';
 
 const LoginPage = () => {
   const { agent, setLoginResponseData } = useAuth();
