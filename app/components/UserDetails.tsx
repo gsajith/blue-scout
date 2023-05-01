@@ -23,7 +23,7 @@ const UserDetails = ({
           <Image
             width={256}
             height={256}
-            className="w-20 h-20 rounded-full mr-3 border-2 border-white]"
+            className="w-20 h-20 rounded-full mr-3 border-2 border-white"
             alt="Profile avatar"
             src={
               profile && profile.avatar

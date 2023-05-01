@@ -17,7 +17,7 @@ const followsCache: Map<string, ProfileView[]> = new Map();
 const followersCache: Map<string, ProfileView[]> = new Map();
 const followsDIDCache: Map<string, string[]> = new Map();
 const followersDIDCache: Map<string, string[]> = new Map();
-let profileCache: ProfileViewDetailed | null = null;
+const profileCache: Map<string, ProfileViewDetailed> = new Map();
 
 export async function getMyProfile(
   agent: BskyAgent,
@@ -37,14 +37,16 @@ export async function getProfile(
   agent: BskyAgent,
   identifier: string
 ): Promise<ProfileViewDetailed | null> {
-  // if (profileCache) return profileCache;
+  if (profileCache.has(identifier)) {
+    return profileCache.get(identifier)!;
+  }
 
   let profile = null;
   const response = await agent.getProfile({ actor: identifier });
 
   if (response.success) {
     profile = response.data;
-    // profileCache = profile;
+    profileCache.set(identifier, profile);
   }
 
   return profile;

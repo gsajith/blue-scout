@@ -5,6 +5,7 @@ import FollowerFollows from './actions/FollowerFollows';
 import DIDLookup from './actions/DIDLookup';
 import { useAuth } from '../auth/AuthProvider';
 import Image from 'next/image';
+import TestAction from './actions/TestAction';
 
 const NEEDS_AUTH = [
   true, // Handle lookup
@@ -26,6 +27,9 @@ const AppPage = () => {
       break;
     case 1:
       renderedAction = <DIDLookup />;
+      break;
+    case 4:
+      renderedAction = <TestAction />;
     default:
       break;
   }
@@ -113,6 +117,23 @@ const AppPage = () => {
             <span className="font-light">
               List of people who follow the same people that you follow.
             </span>
+          </ActionBox>
+
+          <ActionBox
+            authRequired={true}
+            onClick={(e) => {
+              setSelectedAction(4);
+            }}
+          >
+            <Image
+              src="/test.svg"
+              width={200}
+              height={200}
+              alt="DID lookup"
+              className="w-9/12 mb-4 sm:w-36 xs:w-48 2xs:w-48"
+            />
+            <span className="font-black mb-1">TEST</span>
+            <span className="font-light">Test action.</span>
           </ActionBox>
 
           <a
