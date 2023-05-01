@@ -15,10 +15,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="relative">
       <AuthProvider>
         <body className={inter.className}>{children}</body>
       </AuthProvider>
+      <div
+        className="h-screen w-screen fixed top-0 z-auto"
+        style={{
+          background: `linear-gradient(45deg,rgb(var(--background-end-rgb)), rgb(var(--background-start-rgb)))`
+        }}
+      />
     </html>
   );
 }

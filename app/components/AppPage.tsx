@@ -4,6 +4,7 @@ import PrimaryButton from './PrimaryButton';
 import FollowerFollows from './actions/FollowerFollows';
 import DIDLookup from './actions/DIDLookup';
 import { useAuth } from '../auth/AuthProvider';
+import Image from 'next/image';
 
 const NEEDS_AUTH = [
   true, // Handle lookup
@@ -47,7 +48,17 @@ const AppPage = () => {
               setSelectedAction(0);
             }}
           >
-            Who your followers follow the most
+            <Image
+              src="/most_like_you.svg"
+              width={200}
+              height={200}
+              alt="DID lookup"
+              className="w-6/12 mb-4 sm:w-36 xs:w-36 2xs:w-36"
+            />
+            <span className="font-black mb-1">Most like you</span>
+            <span className="font-light">
+              List of people that are most followed by your audience.
+            </span>
           </ActionBox>
           <ActionBox
             authRequired={NEEDS_AUTH[1]}
@@ -55,7 +66,17 @@ const AppPage = () => {
               setSelectedAction(1);
             }}
           >
-            Handle lookup
+            <Image
+              src="/id_lookup.svg"
+              width={200}
+              height={200}
+              alt="DID lookup"
+              className="w-6/12 mb-4 sm:w-36 xs:w-36 2xs:w-36"
+            />
+            <span className="font-black mb-1">Look up profile</span>
+            <span className="font-light">
+              Look up a profile by handle or identifier.
+            </span>
           </ActionBox>
           <ActionBox
             authRequired={NEEDS_AUTH[2]}
@@ -63,7 +84,17 @@ const AppPage = () => {
               setSelectedAction(2);
             }}
           >
-            Who the people you're following the most
+            <Image
+              src="/your_influencers.svg"
+              width={200}
+              height={200}
+              alt="DID lookup"
+              className="w-9/12 mb-4 sm:w-36 xs:w-48 2xs:w-48"
+            />
+            <span className="font-black mb-1">Your influences</span>
+            <span className="font-light">
+              People that are most followed by the people you're following.
+            </span>
           </ActionBox>
           <ActionBox
             authRequired={NEEDS_AUTH[3]}
@@ -71,7 +102,17 @@ const AppPage = () => {
               setSelectedAction(3);
             }}
           >
-            Who also follows the people you're following
+            <Image
+              src="/taste_buds.svg"
+              width={200}
+              height={200}
+              alt="DID lookup"
+              className="w-9/12 mb-4 sm:w-36 xs:w-48 2xs:w-48"
+            />
+            <span className="font-black mb-1">Taste buds</span>
+            <span className="font-light">
+              List of people who follow the same people that you follow.
+            </span>
           </ActionBox>
 
           <a
@@ -82,7 +123,7 @@ const AppPage = () => {
           >
             <ActionBox
               authRequired={false}
-              className="opacity-40 hover:bg-[#262941]"
+              className="hover:bg-[#262941]"
               onClick={(e) => {
                 e.preventDefault();
                 linkRef.current!.click();
