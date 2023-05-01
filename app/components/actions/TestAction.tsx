@@ -20,6 +20,7 @@ const TestAction = () => {
 
   return (
     <div className="pt-8">
+      <div className="mb-4">This is just a list of your followers: </div>
       <div className="max-h-[600px] overflow-x-hidden mt-2">
         <List
           className="list"

@@ -6,6 +6,8 @@ import { useEffect, useMemo, useState } from 'react';
 import TextInput from '../TextInput';
 import UserDetails from '../UserDetails';
 
+const NOT_FOUND = 'Not found.';
+
 const DIDLookup = () => {
   const [handle, setHandle] = useState<string>('');
   const [did, setDID] = useState<string>('');
@@ -16,14 +18,14 @@ const DIDLookup = () => {
   const fetchAndUpdateHandle = useMemo(
     () =>
       debounce(async () => {
-        if (agent && handle.length > 0 && handle !== 'not found') {
+        if (agent && handle.length > 0 && handle !== NOT_FOUND) {
           try {
             const profile = await getProfile(agent, handle);
             setDID(profile!.did);
             setProfile(profile);
             console.log(profile);
           } catch (e) {
-            setDID('not found');
+            setDID(NOT_FOUND);
             setProfile(null);
           }
         } else if (handle.length === 0) {
@@ -37,13 +39,13 @@ const DIDLookup = () => {
   const fetchAndUpdateDID = useMemo(
     () =>
       debounce(async () => {
-        if (agent && did.length > 0 && did !== 'not found') {
+        if (agent && did.length > 0 && did !== NOT_FOUND) {
           try {
             const profile = await getProfile(agent, did);
             setHandle(profile!.handle);
             setProfile(profile);
           } catch (e) {
-            setHandle('not found');
+            setHandle(NOT_FOUND);
             setProfile(null);
           }
         } else if (did.length === 0) {
@@ -99,10 +101,20 @@ const DIDLookup = () => {
             setDID(event.target.value);
           }}
         />
+
+        <div className="text-xs w-full flex justify-end underline text-slate-400 hover:text-white mt-[-8px]">
+          <a
+            href="https://atproto.com/guides/overview#identity"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            How do DIDs work?
+          </a>
+        </div>
       </div>
 
       {profile && (
-        <div className="mt-6 bg-[#141428] rounded-xl p-6 w-full max-w-xl">
+        <div className="mt-6 bg-[#262941] rounded-xl p-6 w-full max-w-xl">
           <UserDetails profile={profile} showLogin={false} fullWidth={true} />
         </div>
       )}

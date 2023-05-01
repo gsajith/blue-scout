@@ -52,35 +52,17 @@ const AppPage = () => {
               setSelectedAction(0);
             }}
           >
+            <span className="font-black mb-1">Most like you</span>
+            <span className="font-light">
+              People that are most followed by your audience/followers.
+            </span>
             <Image
               src="/most_like_you.svg"
               width={200}
               height={200}
               alt="DID lookup"
-              className="w-6/12 mb-4 sm:w-36 xs:w-36 2xs:w-36"
+              className="w-6/12 mt-6 sm:w-36 xs:w-36 2xs:w-36"
             />
-            <span className="font-black mb-1">Most like you</span>
-            <span className="font-light">
-              List of people that are most followed by your audience.
-            </span>
-          </ActionBox>
-          <ActionBox
-            authRequired={NEEDS_AUTH[1]}
-            onClick={(e) => {
-              setSelectedAction(1);
-            }}
-          >
-            <Image
-              src="/id_lookup.svg"
-              width={200}
-              height={200}
-              alt="DID lookup"
-              className="w-6/12 mb-4 sm:w-36 xs:w-36 2xs:w-36"
-            />
-            <span className="font-black mb-1">Look up profile</span>
-            <span className="font-light">
-              Look up a profile by handle or identifier.
-            </span>
           </ActionBox>
           <ActionBox
             authRequired={NEEDS_AUTH[2]}
@@ -88,17 +70,17 @@ const AppPage = () => {
               setSelectedAction(2);
             }}
           >
+            <span className="font-black mb-1">Your influences</span>
+            <span className="font-light">
+              People that are most followed by the people you're following.
+            </span>
             <Image
               src="/your_influencers.svg"
               width={200}
               height={200}
               alt="DID lookup"
-              className="w-9/12 mb-4 sm:w-36 xs:w-48 2xs:w-48"
+              className="w-9/12 mt-6 sm:w-36 xs:w-48 2xs:w-48"
             />
-            <span className="font-black mb-1">Your influences</span>
-            <span className="font-light">
-              People that are most followed by the people you're following.
-            </span>
           </ActionBox>
           <ActionBox
             authRequired={NEEDS_AUTH[3]}
@@ -106,17 +88,36 @@ const AppPage = () => {
               setSelectedAction(3);
             }}
           >
+            <span className="font-black mb-1">Taste buds</span>
+            <span className="font-light">
+              Find people who follow the same people that you do.
+            </span>
             <Image
               src="/taste_buds.svg"
               width={200}
               height={200}
               alt="DID lookup"
-              className="w-9/12 mb-4 sm:w-36 xs:w-48 2xs:w-48"
+              className="w-9/12 mt-6 sm:w-36 xs:w-48 2xs:w-48"
             />
-            <span className="font-black mb-1">Taste buds</span>
+          </ActionBox>
+
+          <ActionBox
+            authRequired={NEEDS_AUTH[1]}
+            onClick={(e) => {
+              setSelectedAction(1);
+            }}
+          >
+            <span className="font-black mb-1">Look up profile</span>
             <span className="font-light">
-              List of people who follow the same people that you follow.
+              Look up a profile by handle or identifier.
             </span>
+            <Image
+              src="/id_lookup.svg"
+              width={200}
+              height={200}
+              alt="DID lookup"
+              className="w-7/12 mt-8 sm:w-36 xs:w-36 2xs:w-36"
+            />
           </ActionBox>
 
           <ActionBox
