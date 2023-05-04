@@ -9,7 +9,11 @@ type ProfileListItemProps = {
   style: CSSProperties;
 };
 
-const ProfileListItem = ({ did, style }: ProfileListItemProps) => {
+const ProfileListItem = ({
+  did,
+  style,
+  children
+}: React.PropsWithChildren<ProfileListItemProps>) => {
   const { agent } = useAuth();
   const [profile, setProfile] = useState<ProfileViewDetailed | null>(null);
   useEffect(() => {
@@ -28,8 +32,8 @@ const ProfileListItem = ({ did, style }: ProfileListItemProps) => {
   }, []);
   return (
     <div className="my-2 pr-4" style={style}>
-      <div className="bg-[#262941] p-4 h-24 rounded-lg hover:bg-[#333654] focus:border-2 cursor-pointer border-slate-600 border">
-        <div className="flex flex-row items-center pb-6 truncate">
+      <div className="bg-[#262941] p-4 pb-6 h-30 rounded-lg hover:bg-[#333654] focus:border-2 cursor-pointer border-slate-600 border">
+        <div className="flex flex-row items-center truncate">
           <Image
             width={64}
             height={64}
@@ -49,6 +53,7 @@ const ProfileListItem = ({ did, style }: ProfileListItemProps) => {
               @{profile ? profile.handle : '-------.bsky.social'}
             </div>
           </div>
+          {children}
         </div>
       </div>
     </div>

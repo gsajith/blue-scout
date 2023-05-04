@@ -1,8 +1,10 @@
 import { useAuth } from '@/app/auth/AuthProvider';
-import { getFollowersDID } from '@/helpers/bsky';
+import { getFollowersDID, getProfile } from '@/helpers/bsky';
+import { BLACKLIST_DIDS } from '@/helpers/blacklist';
 import { useEffect, useState } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import ProfileListItem from '../ProfileListItem';
+import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 
 const TestAction = () => {
   const { agent, loginResponseData } = useAuth();
@@ -17,6 +19,32 @@ const TestAction = () => {
       getFollowers();
     }
   }, [agent, loginResponseData]);
+
+  useEffect(() => {
+    console.log(BLACKLIST_DIDS);
+    async function getFollowerDetails() {
+      const profiles: ProfileViewDetailed[] = [];
+      for (var i = 0; i < followerDIDs.length; i++) {
+        const profile = await getProfile(agent!, followerDIDs[i]);
+        if (profile) {
+          profiles.push(profile);
+        }
+      }
+      // let outputString = '';
+      // profiles
+      //   .sort((a, b) => a.followsCount! - b.followsCount!)
+      //   .forEach((profile) => {
+      //     if (profile.followsCount! > 4000) {
+      //       outputString += '"' + profile.did + '",';
+      //       console.log('"' + profile.did + '",');
+      //     }
+      //   });
+      // console.log(outputString);
+    }
+    if (agent && followerDIDs.length > 0) {
+      getFollowerDetails();
+    }
+  }, [followerDIDs]);
 
   return (
     <div className="pt-8">

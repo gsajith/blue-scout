@@ -21,3 +21,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 - Virtualized list for result table
 - Just-in-time load profile from DID in list item
 - Actions for following-your-following and your-followings-following
+
+## References
+
+- [https://skyline.gay/](https://github.com/louislva/skyline) (MIT License)

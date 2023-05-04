@@ -202,7 +202,7 @@ export async function getFollowersDID(
   agent: BskyAgent,
   identifier: string,
   limit: number = 100,
-  maxPages: number = 20
+  maxPages: number = 40
 ): Promise<string[]> {
   // Check if in-memory cache has it
   if (followersDIDCache.has(identifier)) {
@@ -211,19 +211,19 @@ export async function getFollowersDID(
   }
 
   // Check if DB has it
-  const followersFromDb = await fetch(`/api/db/followers?did=${identifier}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then((r) => r.json());
+  // const followersFromDb = await fetch(`/api/db/followers?did=${identifier}`, {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // }).then((r) => r.json());
 
   // Update the cache and return
-  if (followersFromDb.length > 0) {
-    console.log('Found DB followers for', identifier);
-    followersDIDCache.set(identifier, followersFromDb);
-    return followersFromDb;
-  }
+  // if (followersFromDb.length > 0) {
+  //   console.log('Found DB followers for', identifier);
+  //   followersDIDCache.set(identifier, followersFromDb);
+  //   return followersFromDb;
+  // }
 
   let followers: string[] = [];
   let cursor;

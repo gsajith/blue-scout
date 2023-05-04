@@ -6,6 +6,8 @@ import PrimaryButton from './PrimaryButton';
 import DIDLookup from './actions/DIDLookup';
 import FollowerFollows from './actions/FollowerFollows';
 import TestAction from './actions/TestAction';
+import FollowingFollows from './actions/FollowingFollows';
+import FollowingFollowers from './actions/FollowingFollowers';
 
 const NEEDS_AUTH = [
   true, // Handle lookup
@@ -27,6 +29,12 @@ const AppPage = () => {
       break;
     case 1:
       renderedAction = <DIDLookup />;
+      break;
+    case 2:
+      renderedAction = <FollowingFollows />;
+      break;
+    case 3:
+      renderedAction = <FollowingFollowers />;
       break;
     case 4:
       renderedAction = <TestAction />;
