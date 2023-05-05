@@ -20,6 +20,7 @@ const TestAction = () => {
     }
   }, [agent, loginResponseData]);
 
+  // ****************************** Blacklist building ******************************
   useEffect(() => {
     console.log(BLACKLIST_DIDS);
     async function getFollowerDetails() {
@@ -45,6 +46,7 @@ const TestAction = () => {
       getFollowerDetails();
     }
   }, [followerDIDs]);
+  // ****************************** End blacklist building ******************************
 
   return (
     <div className="pt-8">
