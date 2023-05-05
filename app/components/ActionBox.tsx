@@ -30,11 +30,11 @@ const ActionBox = ({
       }
     >
       <div className="w-full h-full flex flex-col items-center">
-        {needsToAuth && (
+        {/* {needsToAuth && (
           <div className="absolute bg-slate-900 opacity-80 w-full h-full rounded-xl flex p-8 justify-center items-end pb-6 top-0">
             <FaLock className="mr-2 mb-1" /> Login required
           </div>
-        )}
+        )} */}
         {children}
       </div>
     </button>

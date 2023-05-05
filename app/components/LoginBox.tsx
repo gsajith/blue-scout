@@ -46,7 +46,7 @@ const LoginBox: React.FC<LoginBoxProps> = ({
   };
 
   return (
-    <div className="container max-w-sm flex flex-col justify-center items-center rounded-3xl bg-[#1D1E35]">
+    <div className="max-w-sm flex flex-col justify-center items-center bg-[#1D1E35]">
       {/* The title */}
       <h1 className="text-2xl font-bold mb-6 text-center">{title}</h1>
       {/* The login form */}

@@ -9,7 +9,11 @@ type UserDetailsProps = {
 };
 const UserDetails = ({ profile, fullWidth = false }: UserDetailsProps) => {
   if (!profile) {
-    return <LoginBox title={'Log in with Bluesky to get full features'} />;
+    return (
+      <div>
+        <LoginBox title={'Log in with Bluesky to get full features'} />
+      </div>
+    );
   }
 
   return (
@@ -17,7 +21,9 @@ const UserDetails = ({ profile, fullWidth = false }: UserDetailsProps) => {
       <div
         className={
           'flex flex-row items-center border-b-2 pb-6 border-slate-600 truncate w-full' +
-          (fullWidth ? ' max-w-screen-2xl' : ' max-w-xs')
+          (fullWidth
+            ? ' max-w-screen-2xl'
+            : ' max-w-xs sm:max-w-[80%] xs:max-w-full 2xs:max-w-full')
         }
       >
         <Image

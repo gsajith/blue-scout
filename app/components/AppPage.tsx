@@ -62,7 +62,7 @@ const AppPage = () => {
               src="/your_influencers.svg"
               width={200}
               height={200}
-              alt="DID lookup"
+              alt="Your influencers"
               className="w-9/12 mt-6 sm:w-36 xs:w-48 2xs:w-48"
             />
           </ActionBox>
@@ -79,7 +79,7 @@ const AppPage = () => {
               src="/most_like_you.svg"
               width={200}
               height={200}
-              alt="DID lookup"
+              alt="Most like you"
               className="w-6/12 mt-6 sm:w-36 xs:w-36 2xs:w-36"
             />
           </ActionBox>
@@ -96,7 +96,7 @@ const AppPage = () => {
               src="/taste_buds.svg"
               width={200}
               height={200}
-              alt="DID lookup"
+              alt="Taste buds"
               className="w-9/12 mt-6 sm:w-36 xs:w-48 2xs:w-48"
             />
           </ActionBox>
@@ -128,7 +128,7 @@ const AppPage = () => {
               src="/test.svg"
               width={200}
               height={200}
-              alt="DID lookup"
+              alt="Test action"
               className="w-9/12 mb-4 sm:w-36 xs:w-48 2xs:w-48"
             />
             <span className="font-black mb-1">TEST</span>

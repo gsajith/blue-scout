@@ -19,7 +19,7 @@ const LoginPage = () => {
       {!loginResponseData && (
         <div className="flex flex-col items-center justify-center p-2 pb-8">
           <div className="shadow-2xl rounded-3xl bg-[#1D1E35] p-12">
-            <LoginBox />
+            <LoginBox title={'Login with Bluesky'} />
           </div>
           {/* Security policy section */}
           <SecurityInfo />

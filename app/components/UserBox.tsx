@@ -28,10 +28,10 @@ const UserBox = () => {
   }, [agent, loginResponseData]);
 
   return (
-    <div>
+    <div className="w-[350px] sm:w-full xs:w-full 2xs:w-full">
       <div
         className={
-          'w-[350px] flex flex-col items-start bg-[#1D1E35] drop-shadow-2xl rounded-3xl px-10 py-10 ' +
+          'flex flex-col items-start w-full items-center bg-[#1D1E35] drop-shadow-2xl rounded-3xl px-10 py-10 ' +
           (loginResponseData && 'px-6')
         }
       >

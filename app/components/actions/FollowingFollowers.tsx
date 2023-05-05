@@ -83,8 +83,8 @@ const FollowingFollowers = () => {
 
   return (
     <div>
-      <div className="max-h-[600px] overflow-y-scroll overflow-x-hidden mt-2">
-        <div className="flex flex-col p-4 bg-[#151729] mr-4 rounded-xl mb-6 mt-2">
+      <div className="max-h-[610px] overflow-y-scroll overflow-x-hidden mt-2">
+        <div className="flex flex-col p-6 bg-[#151729] mr-4 rounded-xl mb-6 mt-2">
           <span className="font-black mb-1">Taste buds</span>
           <span className="font-light">
             Find people who follow the same people that you do.
