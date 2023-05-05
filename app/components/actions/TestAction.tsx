@@ -12,7 +12,11 @@ const TestAction = () => {
 
   useEffect(() => {
     async function getFollowers() {
-      const followers = await getFollowersDID(agent!, loginResponseData!.did);
+      const followers = await getFollowersDID({
+        agent: agent!,
+        identifier: loginResponseData!.did,
+        bypassDB: true
+      });
       setFollowerDIDs(followers);
     }
     if (agent && loginResponseData) {
@@ -22,7 +26,7 @@ const TestAction = () => {
 
   // ****************************** Blacklist building ******************************
   useEffect(() => {
-    console.log(BLACKLIST_DIDS);
+    // console.log(BLACKLIST_DIDS);
     async function getFollowerDetails() {
       const profiles: ProfileViewDetailed[] = [];
       for (var i = 0; i < followerDIDs.length; i++) {

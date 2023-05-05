@@ -1,17 +1,18 @@
 'use client';
 import { useAuth } from '@/app/auth/AuthProvider';
-import { getFollowsDID } from '@/helpers/bsky';
+import { getFollowersDID, getFollowsDID } from '@/helpers/bsky';
 import { useEffect, useState } from 'react';
 import ProfileListItem from '../ProfileListItem';
 import { FixedSizeList as List } from 'react-window';
 import ProgressBar from '../ProgressBar';
 import { BLACKLIST_DIDS } from '@/helpers/blacklist';
 
-const FollowingFollows = () => {
+// Find people who follow the same people that you do.
+const TasteBuds = () => {
   const { agent, loginResponseData } = useAuth();
   const [followingDIDs, setFollowingDIDs] = useState<string[]>([]);
   const [resultCounter, setResultCounter] = useState<
-    Map<string, { followsDIDs: string[] }>
+    Map<string, { followedByDIDs: string[] }>
   >(new Map());
 
   const [progress, setProgress] = useState(0);
@@ -20,11 +21,15 @@ const FollowingFollows = () => {
   // TODO: Remove yourself from this list
   // TODO: Show if you follow them or not?
   // TODO: Show if they follow you or not?
+  // TODO: Sort this by % of their follows that overlaps with yours?
 
   // Get all of my following
   useEffect(() => {
     async function fetchFollowing() {
-      const response = await getFollowsDID(agent!, loginResponseData!.did);
+      const response = await getFollowsDID({
+        agent: agent!,
+        identifier: loginResponseData!.did
+      });
       if (response) {
         console.log('Got my follows', response);
         setFollowingDIDs(response);
@@ -33,23 +38,26 @@ const FollowingFollows = () => {
     fetchFollowing();
   }, [agent, loginResponseData]);
 
-  // For each of my following, get all the people they follow
+  // For each of my following, get all of their followers
   useEffect(() => {
-    async function fetchFollowingFollows() {
+    async function fetchFollowingFollowers() {
       if (followingDIDs.length > 0) {
         for (let i = 0; i < followingDIDs.length; i++) {
           setProgress(i + 1);
           if (BLACKLIST_DIDS.indexOf(followingDIDs[i]) < 0) {
             console.log('getting', followingDIDs[i]);
-            const result = await getFollowsDID(agent!, followingDIDs[i]);
+            const result = await getFollowersDID({
+              agent: agent!,
+              identifier: followingDIDs[i]
+            });
             if (result) {
               setResultCounter((oldMap) => {
                 const newMap = new Map(oldMap);
-                result.forEach((followDID) => {
-                  newMap.set(followDID, {
-                    followsDIDs: oldMap.has(followDID)
+                result.forEach((followerDID) => {
+                  newMap.set(followerDID, {
+                    followedByDIDs: oldMap.has(followerDID)
                       ? [
-                          ...oldMap.get(followDID)!.followsDIDs,
+                          ...oldMap.get(followerDID)!.followedByDIDs,
                           followingDIDs[i]
                         ]
                       : [followingDIDs[i]]
@@ -63,7 +71,7 @@ const FollowingFollows = () => {
         }
       }
     }
-    fetchFollowingFollows();
+    fetchFollowingFollowers();
 
     return () => {
       setResultCounter(new Map());
@@ -74,17 +82,19 @@ const FollowingFollows = () => {
   const sortedTrimmedResults = Array.from(resultCounter, ([key, value]) => ({
     key,
     value
-  })).sort((a, b) =>
-    a.value.followsDIDs.length < b.value.followsDIDs.length ? 1 : -1
-  );
+  }))
+    .sort((a, b) =>
+      a.value.followedByDIDs.length < b.value.followedByDIDs.length ? 1 : -1
+    )
+    .filter((item) => BLACKLIST_DIDS.indexOf(item.key) < 0);
 
   return (
     <div>
       <div className="max-h-[610px] overflow-y-scroll overflow-x-hidden mt-2">
         <div className="flex flex-col p-6 bg-[#151729] mr-4 rounded-xl mb-6 mt-2">
-          <span className="font-black mb-1">Your influences</span>
+          <span className="font-black mb-1">Taste buds</span>
           <span className="font-light">
-            People that are most followed by the people you're following.
+            Find people who follow the same people that you do.
           </span>
           <div className="mt-3">
             <ProgressBar
@@ -100,7 +110,7 @@ const FollowingFollows = () => {
         </div>
         <div className="flex flex-row justify-between ml-4 mr-8 mb-3 font-bold">
           <div>User</div>
-          <div className="text-right"># of your follows who follow them</div>
+          <div className="text-right"># of your follows they're following</div>
         </div>
         <List
           className="list"
@@ -117,7 +127,7 @@ const FollowingFollows = () => {
                 style={style}
               >
                 <span className="font-bold text-white rounded-2xl bg-fuchsia-400 py-1 px-2">
-                  {sortedTrimmedResults[index].value.followsDIDs.length}
+                  {sortedTrimmedResults[index].value.followedByDIDs.length}
                 </span>
               </ProfileListItem>
             );
@@ -128,4 +138,4 @@ const FollowingFollows = () => {
   );
 };
 
-export default FollowingFollows;
+export default TasteBuds;

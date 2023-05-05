@@ -5,10 +5,10 @@ import { useAuth } from '../auth/AuthProvider';
 import ActionBox from './ActionBox';
 import PrimaryButton from './PrimaryButton';
 import DIDLookup from './actions/DIDLookup';
-import FollowerFollows from './actions/FollowerFollows';
+import MostLikeYou from './actions/MostLikeYou';
 import TestAction from './actions/TestAction';
-import FollowingFollows from './actions/FollowingFollows';
-import FollowingFollowers from './actions/FollowingFollowers';
+import YourInfluences from './actions/YourInfluences';
+import TasteBuds from './actions/TasteBuds';
 
 const AppPage = () => {
   const [selectedAction, setSelectedAction] = useState<number | null>(null);
@@ -19,16 +19,16 @@ const AppPage = () => {
 
   switch (selectedAction) {
     case 0:
-      renderedAction = <FollowerFollows />;
+      renderedAction = <MostLikeYou />;
       break;
     case 1:
       renderedAction = <DIDLookup />;
       break;
     case 2:
-      renderedAction = <FollowingFollows />;
+      renderedAction = <YourInfluences />;
       break;
     case 3:
-      renderedAction = <FollowingFollowers />;
+      renderedAction = <TasteBuds />;
       break;
     case 4:
       renderedAction = <TestAction />;

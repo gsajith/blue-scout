@@ -7,9 +7,10 @@ import { FixedSizeList as List } from 'react-window';
 import ProgressBar from '../ProgressBar';
 import { BLACKLIST_DIDS } from '@/helpers/blacklist';
 
-const FollowingFollowers = () => {
+// People that are most followed by your audience/followers.
+const MostLikeYou = () => {
   const { agent, loginResponseData } = useAuth();
-  const [followingDIDs, setFollowingDIDs] = useState<string[]>([]);
+  const [followerDIDs, setFollowerDIDs] = useState<string[]>([]);
   const [resultCounter, setResultCounter] = useState<
     Map<string, { followedByDIDs: string[] }>
   >(new Map());
@@ -20,29 +21,34 @@ const FollowingFollowers = () => {
   // TODO: Remove yourself from this list
   // TODO: Show if you follow them or not?
   // TODO: Show if they follow you or not?
-  // TODO: Sort this by % of their follows that overlaps with yours?
 
-  // Get all of my following
+  // Get all of my followers
   useEffect(() => {
-    async function fetchFollowing() {
-      const response = await getFollowsDID(agent!, loginResponseData!.did);
+    async function fetchFollowers() {
+      const response = await getFollowersDID({
+        agent: agent!,
+        identifier: loginResponseData!.did
+      });
       if (response) {
-        console.log('Got my follows', response);
-        setFollowingDIDs(response);
+        console.log('Got my followers', response);
+        setFollowerDIDs(response);
       }
     }
-    fetchFollowing();
+    fetchFollowers();
   }, [agent, loginResponseData]);
 
-  // For each of my following, get all of their followers
+  // For each of my followers, get all the people they follow
   useEffect(() => {
-    async function fetchFollowingFollowers() {
-      if (followingDIDs.length > 0) {
-        for (let i = 0; i < followingDIDs.length; i++) {
+    async function fetchFollowerFollows() {
+      if (followerDIDs.length > 0) {
+        for (let i = 0; i < followerDIDs.length; i++) {
           setProgress(i + 1);
-          if (BLACKLIST_DIDS.indexOf(followingDIDs[i]) < 0) {
-            console.log('getting', followingDIDs[i]);
-            const result = await getFollowersDID(agent!, followingDIDs[i]);
+          if (BLACKLIST_DIDS.indexOf(followerDIDs[i]) < 0) {
+            console.log('getting', followerDIDs[i]);
+            const result = await getFollowsDID({
+              agent: agent!,
+              identifier: followerDIDs[i]
+            });
             if (result) {
               setResultCounter((oldMap) => {
                 const newMap = new Map(oldMap);
@@ -51,9 +57,9 @@ const FollowingFollowers = () => {
                     followedByDIDs: oldMap.has(followerDID)
                       ? [
                           ...oldMap.get(followerDID)!.followedByDIDs,
-                          followingDIDs[i]
+                          followerDIDs[i]
                         ]
-                      : [followingDIDs[i]]
+                      : [followerDIDs[i]]
                   });
                 });
                 return newMap;
@@ -64,46 +70,44 @@ const FollowingFollowers = () => {
         }
       }
     }
-    fetchFollowingFollowers();
+    fetchFollowerFollows();
 
     return () => {
       setResultCounter(new Map());
       setProgress(0);
     };
-  }, [followingDIDs]);
+  }, [followerDIDs]);
 
   const sortedTrimmedResults = Array.from(resultCounter, ([key, value]) => ({
     key,
     value
-  }))
-    .sort((a, b) =>
-      a.value.followedByDIDs.length < b.value.followedByDIDs.length ? 1 : -1
-    )
-    .filter((item) => BLACKLIST_DIDS.indexOf(item.key) < 0);
+  })).sort((a, b) =>
+    a.value.followedByDIDs.length < b.value.followedByDIDs.length ? 1 : -1
+  );
 
   return (
     <div>
       <div className="max-h-[610px] overflow-y-scroll overflow-x-hidden mt-2">
         <div className="flex flex-col p-6 bg-[#151729] mr-4 rounded-xl mb-6 mt-2">
-          <span className="font-black mb-1">Taste buds</span>
+          <span className="font-black mb-1">Most like you</span>
           <span className="font-light">
-            Find people who follow the same people that you do.
+            People that are most followed by your audience/followers.
           </span>
           <div className="mt-3">
             <ProgressBar
               min={progress}
-              max={followingDIDs.length}
+              max={followerDIDs.length}
               message={
-                progress < followingDIDs.length
-                  ? 'Scanning your follows...'
-                  : 'Done scanning your follows.'
+                progress < followerDIDs.length
+                  ? 'Scanning your followers...'
+                  : 'Done scanning your followers.'
               }
             />
           </div>
         </div>
         <div className="flex flex-row justify-between ml-4 mr-8 mb-3 font-bold">
           <div>User</div>
-          <div className="text-right"># of your follows they're following</div>
+          <div className="text-right"># of your followers who follow them</div>
         </div>
         <List
           className="list"
@@ -131,4 +135,4 @@ const FollowingFollowers = () => {
   );
 };
 
-export default FollowingFollowers;
+export default MostLikeYou;

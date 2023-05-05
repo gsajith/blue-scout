@@ -2,7 +2,7 @@ import { PLANETSCALE_CONNECTION } from '@/helpers/db';
 
 export async function GET(request) {
   const did = request.nextUrl.searchParams.get('did');
-  console.log("Hit get following with", did);
+  console.log("Hit get follows with", did);
   if (did !== null && typeof did !== 'undefined') {
     const result = await PLANETSCALE_CONNECTION.execute(
       `SELECT * FROM following WHERE (User) = '${did}'`,
@@ -27,8 +27,8 @@ export async function GET(request) {
 export async function POST(request) {
   const json = await request.json();
   const did = json.did;
-  const following = json.following;
-  console.log("Hit post following with", did);
+  const following = json.data;
+  console.log("Hit post follows with", did);
   if (
     typeof following !== 'undefined' &&
     following !== null &&

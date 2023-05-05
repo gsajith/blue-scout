@@ -27,7 +27,7 @@ export async function GET(request) {
 export async function POST(request) {
   const json = await request.json();
   const did = json.did;
-  const followers = json.followers;
+  const followers = json.data;
   console.log("Hit post followers with", did);
   if (
     typeof followers !== 'undefined' &&

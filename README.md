@@ -18,9 +18,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## To Do
 
-- Virtualized list for result table
-- Just-in-time load profile from DID in list item
-- Actions for following-your-following and your-followings-following
+- Store your profile in auth provider to avoid having to get following/followers as first step
 
 ## References
 
