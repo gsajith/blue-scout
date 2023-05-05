@@ -1,3 +1,4 @@
+'use client';
 import { getMyProfile } from '@/helpers/bsky';
 import { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
 import { useEffect, useState } from 'react';
@@ -26,18 +27,21 @@ const UserBox = () => {
     }
   }, [agent, loginResponseData]);
 
-  const welcomeMessage = loginResponseData
-    ? 'Hey there!'
-    : 'Log in to get full features';
-
   return (
-    <div className="w-[350px]">
-      <div className="flex flex-col items-start bg-[#1D1E35] drop-shadow-2xl rounded-3xl p-6">
+    <div>
+      <div
+        className={
+          'w-[350px] flex flex-col items-start bg-[#1D1E35] drop-shadow-2xl rounded-3xl px-10 py-10 ' +
+          (loginResponseData && 'px-6')
+        }
+      >
         <div className="flex flex-col w-full">
-          <div className="flex flex-row justify-between items-center mb-2 w-full">
-            <span className="uppercase text-slate-400 text-sm w-full">
-              {welcomeMessage}
-            </span>
+          <div className="flex flex-row justify-between items-center mb-3 w-full">
+            {loginResponseData && (
+              <span className="uppercase text-slate-400 text-sm w-full">
+                Hey there!
+              </span>
+            )}
             {logout && (
               <div className="w-full flex flex-row justify-end">
                 <PrimaryButton type="button" onClick={logout}>

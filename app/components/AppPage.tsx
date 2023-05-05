@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../auth/AuthProvider';
@@ -8,13 +9,6 @@ import FollowerFollows from './actions/FollowerFollows';
 import TestAction from './actions/TestAction';
 import FollowingFollows from './actions/FollowingFollows';
 import FollowingFollowers from './actions/FollowingFollowers';
-
-const NEEDS_AUTH = [
-  true, // Handle lookup
-  true, // Followers followed
-  true, // Followed's followers
-  true // Followed's followed
-];
 
 const AppPage = () => {
   const [selectedAction, setSelectedAction] = useState<number | null>(null);
@@ -47,6 +41,7 @@ const AppPage = () => {
       setSelectedAction(null);
     }
   }, [loginResponseData]);
+
   return (
     <>
       {selectedAction === null && (
@@ -55,7 +50,6 @@ const AppPage = () => {
           style={{ flex: '1 1 300px' }}
         >
           <ActionBox
-            authRequired={NEEDS_AUTH[2]}
             onClick={(e) => {
               setSelectedAction(2);
             }}
@@ -73,7 +67,6 @@ const AppPage = () => {
             />
           </ActionBox>
           <ActionBox
-            authRequired={NEEDS_AUTH[0]}
             onClick={(e) => {
               setSelectedAction(0);
             }}
@@ -91,7 +84,6 @@ const AppPage = () => {
             />
           </ActionBox>
           <ActionBox
-            authRequired={NEEDS_AUTH[3]}
             onClick={(e) => {
               setSelectedAction(3);
             }}
@@ -110,7 +102,6 @@ const AppPage = () => {
           </ActionBox>
 
           <ActionBox
-            authRequired={NEEDS_AUTH[1]}
             onClick={(e) => {
               setSelectedAction(1);
             }}
@@ -129,7 +120,6 @@ const AppPage = () => {
           </ActionBox>
 
           <ActionBox
-            authRequired={true}
             onClick={(e) => {
               setSelectedAction(4);
             }}

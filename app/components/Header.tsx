@@ -1,3 +1,4 @@
+'use client';
 import { FaPaperPlane } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import { useAuth } from '../auth/AuthProvider';
