@@ -55,24 +55,6 @@ const AppPage = () => {
           style={{ flex: '1 1 300px' }}
         >
           <ActionBox
-            authRequired={NEEDS_AUTH[0]}
-            onClick={(e) => {
-              setSelectedAction(0);
-            }}
-          >
-            <span className="font-black mb-1">Most like you</span>
-            <span className="font-light">
-              People that are most followed by your audience/followers.
-            </span>
-            <Image
-              src="/most_like_you.svg"
-              width={200}
-              height={200}
-              alt="DID lookup"
-              className="w-6/12 mt-6 sm:w-36 xs:w-36 2xs:w-36"
-            />
-          </ActionBox>
-          <ActionBox
             authRequired={NEEDS_AUTH[2]}
             onClick={(e) => {
               setSelectedAction(2);
@@ -88,6 +70,24 @@ const AppPage = () => {
               height={200}
               alt="DID lookup"
               className="w-9/12 mt-6 sm:w-36 xs:w-48 2xs:w-48"
+            />
+          </ActionBox>
+          <ActionBox
+            authRequired={NEEDS_AUTH[0]}
+            onClick={(e) => {
+              setSelectedAction(0);
+            }}
+          >
+            <span className="font-black mb-1">Most like you</span>
+            <span className="font-light">
+              People that are most followed by your audience/followers.
+            </span>
+            <Image
+              src="/most_like_you.svg"
+              width={200}
+              height={200}
+              alt="DID lookup"
+              className="w-6/12 mt-6 sm:w-36 xs:w-36 2xs:w-36"
             />
           </ActionBox>
           <ActionBox
